@@ -7,23 +7,31 @@ const form = document.querySelector('.feedback-form');
 const { email, message } = form;
 console.log(form);
 
-form.addEventListener('input', throttle(inputHandler), 500);
-function inputHandler(event) {
-  //   event.preventDefault();
+form.addEventListener(
+  'input',
+  throttle(event => {
+    //   event.preventDefault();
 
-  const formData = {
-    email: email.value,
-    message: message.value,
-  };
+    const formData = {
+      email: email.value,
+      message: message.value,
+    };
 
-  localStorage.setItem('feedback-form-state', JSON.stringify(formData));
-}
+    localStorage.setItem('feedback-form-state', JSON.stringify(formData));
+  }, 500)
+);
 
 form.addEventListener('submit', onSubmit);
 
 function onSubmit(event) {
   event.preventDefault();
-  console.log(JSON.parse(localStorage.getItem('feedback-form-state')));
+  const data = JSON.parse(localStorage.getItem('feedback-form-state'));
+  if (data === null) {
+    alert('Fill all inputs!');
+    return;
+  }
+
+  console.log(data);
   event.target.reset();
   localStorage.removeItem('feedback-form-state');
 }

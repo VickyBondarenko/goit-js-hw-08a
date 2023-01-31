@@ -22,11 +22,5 @@ player
     localStorage.setItem('videoplayer-current-time', JSON.stringify(0));
   })
   .catch(function (error) {
-    switch (error.name) {
-      case 'RangeError':
-        break;
-
-      default:
-        break;
-    }
+    console.log(error.name);
   });
