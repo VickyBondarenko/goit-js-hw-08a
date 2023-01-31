@@ -26,7 +26,7 @@ form.addEventListener('submit', onSubmit);
 function onSubmit(event) {
   event.preventDefault();
   const data = JSON.parse(localStorage.getItem('feedback-form-state'));
-  if (data === null) {
+  if (email.value === '' || message.value === '') {
     alert('Fill all inputs!');
     return;
   }
